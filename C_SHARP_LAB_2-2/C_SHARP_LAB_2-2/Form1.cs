@@ -18,6 +18,9 @@ namespace C_SHARP_LAB_2_2
         private int currentLayer;
         private int frameCount;
         DateTime nextFPSUpdate = DateTime.Now.AddSeconds(1);
+        bool needReload = false;
+        public static int minBarValue;
+        public static int widthBarValue;
 
 
         public Form1()
@@ -37,16 +40,32 @@ namespace C_SHARP_LAB_2_2
                 loaded = true;
                 glControl1.Invalidate();
                 trackBar1.Maximum = Bin.Z;
+                needReload = true;
+                minBarValue = trackBar2.Value;
+                widthBarValue = trackBar3.Value;
             }
         }
 
         private void glControl1_Paint(object sender, /*PaintEventArgs*/ EventArgs e)
         {
-            //label1.Text = Convert.ToString("ok" + currentLayer);
             if (loaded)
             {
-                //label1.Text = Convert.ToString("OK " + currentLayer);
-                view.DrawQuads(currentLayer);
+                if (needReload)
+                {
+                    view.GenerateTextureImage(currentLayer);
+                    view.Load2DTexture();
+                    needReload = false;
+                }
+
+                if (checkBox1.Checked)
+                {
+                    view.DrawTexture();
+                }
+                else
+                {
+                    view.DrawQuads(currentLayer);
+                }
+
                 glControl1.SwapBuffers();
             }
         }
@@ -54,10 +73,11 @@ namespace C_SHARP_LAB_2_2
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             currentLayer = trackBar1.Value;
+
             if (currentLayer == trackBar1.Maximum)
                 currentLayer--;
-            label1.Text = Convert.ToString(currentLayer);
-            glControl1_Paint(sender, e);
+
+            needReload = true;
         }
 
         private void Application_Idle(object sender, EventArgs e)
@@ -83,6 +103,22 @@ namespace C_SHARP_LAB_2_2
                 frameCount = 0;
             }
             frameCount++;
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            minBarValue = trackBar2.Value;
+            label3.Text = Convert.ToString(trackBar2.Value);
+            glControl1_Paint(sender, e);
+            needReload = true;
+        }
+
+        private void trackBar3_Scroll(object sender, EventArgs e)
+        {
+            widthBarValue = trackBar3.Value;
+            label4.Text = Convert.ToString(trackBar3.Value);
+            glControl1_Paint(sender, e);
+            needReload = true;
         }
     }
 }
