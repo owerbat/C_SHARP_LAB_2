@@ -36,6 +36,7 @@ namespace C_SHARP_LAB_2_2
             {
                 string str = dialog.FileName;
                 bin.readBIN(str);
+                glControl1.Width = (int)(glControl1.Height * Bin.X / Bin.Y);
                 view.SetupView(glControl1.Width, glControl1.Height);
                 loaded = true;
                 glControl1.Invalidate();
