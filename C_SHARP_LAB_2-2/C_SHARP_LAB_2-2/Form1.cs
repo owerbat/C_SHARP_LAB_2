@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OpenTK;
+using OpenTK.Graphics.OpenGL;
 
 namespace C_SHARP_LAB_2_2
 {
@@ -37,6 +39,7 @@ namespace C_SHARP_LAB_2_2
                 string str = dialog.FileName;
                 bin.readBIN(str);
                 glControl1.Width = (int)(glControl1.Height * Bin.X / Bin.Y);
+                //glControl1.Location.X = (this.Size.Width - glControl1.Width) / 2;
                 view.SetupView(glControl1.Width, glControl1.Height);
                 loaded = true;
                 glControl1.Invalidate();
@@ -83,6 +86,8 @@ namespace C_SHARP_LAB_2_2
                 currentLayer--;
 
             needReload = true;
+
+            label5.Text = Convert.ToString(trackBar1.Value);
         }
 
         private void Application_Idle(object sender, EventArgs e)
@@ -125,5 +130,26 @@ namespace C_SHARP_LAB_2_2
             glControl1_Paint(sender, e);
             needReload = true;
         }
+
+        /*private void Form1_SizeChanged(object sender, EventArgs e)
+        {
+            if (!loaded)
+            {
+                GL.Begin(BeginMode.Quads);
+
+                GL.Color3(Color.Black);
+
+                GL.Vertex2(glControl1.Location.X, glControl1.Location.Y);
+                GL.Vertex2(glControl1.Location.X, glControl1.Location.Y + glControl1.Height);
+                GL.Vertex2(glControl1.Location.X + glControl1.Width, glControl1.Location.Y + glControl1.Height);
+                GL.Vertex2(glControl1.Location.X + glControl1.Width, glControl1.Location.Y);
+
+                GL.End();
+
+                //glControl1.Width = this.Size.Width;
+
+                label6.Text = "OK";
+            }
+        }*/
     }
 }
