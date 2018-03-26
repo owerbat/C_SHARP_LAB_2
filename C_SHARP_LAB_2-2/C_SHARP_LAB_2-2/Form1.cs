@@ -62,6 +62,10 @@ namespace C_SHARP_LAB_2_2
                 {
                     view.DrawTexture();
                 }
+                else if (checkBox2.Checked)
+                {
+                    view.DrawQuadStrip(currentLayer);
+                }
                 else
                 {
                     view.DrawQuads(currentLayer);

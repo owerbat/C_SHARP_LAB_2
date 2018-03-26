@@ -78,6 +78,31 @@ namespace C_SHARP_LAB_2_2
             GL.End();
         }
 
+        public void DrawQuadStrip(int layerNumber)
+        {
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+            for (int curX = 0; curX < Bin.X - 1; curX++)
+            {
+                GL.Begin(BeginMode.QuadStrip);
+
+                for (int curY = 0; curY < Bin.Y - 1; curY++)
+                {
+                    short value;
+
+                    value = Bin.array[curX + curY * Bin.X + layerNumber * Bin.X * Bin.Y];
+                    GL.Color3(TransferFunction(value));
+                    GL.Vertex2(curX, curY);
+
+                    value = Bin.array[curX + 1 + curY * Bin.X + layerNumber * Bin.X * Bin.Y];
+                    GL.Color3(TransferFunction(value));
+                    GL.Vertex2(curX + 1, curY);
+                }
+
+                GL.End();
+            }
+        }
+
         public void Load2DTexture()
         {
             GL.BindTexture(TextureTarget.Texture2D, VBOtexture);
