@@ -13,9 +13,6 @@ namespace C_SHARP_LAB_2_2
         public static short[] array;
         public Bin() { }
 
-
-        //public int getZ() { return Z; }
-
         public void readBIN(string path)
         {
             if (File.Exists(path))

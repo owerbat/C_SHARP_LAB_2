@@ -23,8 +23,7 @@ namespace C_SHARP_LAB_2_2
         bool needReload = false;
         public static int minBarValue;
         public static int widthBarValue;
-
-
+        
         public Form1()
         {
             InitializeComponent();
