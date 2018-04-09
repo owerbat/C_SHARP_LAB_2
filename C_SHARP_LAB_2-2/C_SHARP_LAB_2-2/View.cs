@@ -144,6 +144,42 @@ namespace C_SHARP_LAB_2_2
             GL.Enable(EnableCap.Texture2D);
             GL.BindTexture(TextureTarget.Texture2D, VBOtexture);
 
+            GL.Disable(EnableCap.Lighting);
+            GL.Disable(EnableCap.Light0);
+
+            GL.Begin(BeginMode.Quads);
+            GL.Color3(Color.White);
+            GL.TexCoord2(0f, 0f);
+            GL.Vertex2(0, 0);
+            GL.TexCoord2(0f, 1f);
+            GL.Vertex2(0, Bin.Y);
+            GL.TexCoord2(1f, 1f);
+            GL.Vertex2(Bin.X, Bin.Y);
+            GL.TexCoord2(1f, 0f);
+            GL.Vertex2(Bin.X, 0);
+            GL.End();
+
+            GL.Disable(EnableCap.Texture2D);
+        }
+
+        public void DrawLightingTexture()
+        {
+            GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+            GL.Enable(EnableCap.Texture2D);
+            GL.BindTexture(TextureTarget.Texture2D, VBOtexture);
+
+            GL.Enable(EnableCap.Lighting);
+            GL.Enable(EnableCap.Light0);
+            GL.Light(LightName.Light0, LightParameter.Position, new float[] { 1.0f, 1.0f, 3.0f, 0.0f });
+            //GL.Light(LightName.Light0, LightParameter.Ambient, OpenTK.Graphics.Color4.Red);
+            GL.Light(LightName.Light0, LightParameter.Diffuse, OpenTK.Graphics.Color4.Red);
+            //GL.Light(LightName.Light0, LightParameter.Specular, OpenTK.Graphics.Color4.Red);
+            GL.Light(LightName.Light0, LightParameter.QuadraticAttenuation, 1.0f);
+            /*GL.Light(LightName.Light0, LightParameter.SpotCutoff, 10.0f);
+            GL.Light(LightName.Light0, LightParameter.SpotDirection, new float[] {0.0f, 0.0f, 1.0f, 0.0f});
+            GL.Light(LightName.Light0, LightParameter.SpotExponent, 0.0f);*/
+
+
             GL.Begin(BeginMode.Quads);
             GL.Color3(Color.White);
             GL.TexCoord2(0f, 0f);
@@ -160,3 +196,19 @@ namespace C_SHARP_LAB_2_2
         }
     }
 }
+
+/*GL.Enable(EnableCap.Lighting);
+            GL.Enable(EnableCap.Light0);
+            GL.Enable(EnableCap.ColorMaterial);
+
+            Vector4 lightPosition = new Vector4(1.0f, 1.0f, 4.0f, 0.0f);
+            GL.Light(LightName.Light0, LightParameter.Position, lightPosition);
+            Vector4 ambientColor = new Vector4(0.2f, 0.2f, 0.2f, 1.0f);
+            GL.Light(LightName.Light0, LightParameter.Ambient, ambientColor);
+            Vector4 diffuseColor = new Vector4(0.6f, 0.6f, 0.6f, 1.0f);
+            GL.Light(LightName.Light0, LightParameter.Diffuse, diffuseColor);
+
+            Vector4 materialSpecular = new Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+            GL.Material(MaterialFace.Front, MaterialParameter.Specular, materialSpecular);
+            float materialShininess = 100;
+            GL.Material(MaterialFace.Front, MaterialParameter.Shininess, materialShininess);*/

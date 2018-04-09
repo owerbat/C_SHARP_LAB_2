@@ -62,7 +62,16 @@ namespace C_SHARP_LAB_2_2
 
                 if (checkBox1.Checked)
                 {
-                    view.DrawTexture();
+                    if (checkBox3.Checked)
+                    {
+                        label6.Text = "L";
+                        view.DrawLightingTexture();
+                    }
+                    else
+                    {
+                        label6.Text = "N";
+                        view.DrawTexture();
+                    }
                 }
                 else if (checkBox2.Checked)
                 {
